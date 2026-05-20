@@ -1,5 +1,10 @@
 README.md
 setup.py
+myconet/__init__.py
+myconet/freiman.py
+myconet/network.py
+myconet/simulation.py
+myconet/transport.py
 myconet.egg-info/PKG-INFO
 myconet.egg-info/SOURCES.txt
 myconet.egg-info/dependency_links.txt

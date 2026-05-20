@@ -81,7 +81,7 @@ pip install myconet
 From source:
 
 ```bash
-git clone https://github.com/[handle]/myconet
+git clone https://github.com/quantumproteinsai/myconet
 cd myconet
 pip install -e ".[dev]"
 ```
@@ -142,7 +142,7 @@ pytest tests/ -v
   author  = {Mercier des Rochettes, Bertrand},
   title   = {{MycoNet}: Python simulation framework for mycorrhizal network biophysics},
   year    = {2026},
-  url     = {https://github.com/[handle]/myconet},
+  url     = {https://github.com/quantumproteinsai/myconet},
   version = {1.0.0}
 }
 
