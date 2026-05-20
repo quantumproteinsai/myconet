@@ -51,8 +51,10 @@ pip install -e ".[dev]"
 pip install myconet
 git clone https://github.com/quantumproteinsai/myconet
 cd myconet
-python examples/quickstart.py
+python3 examples/quickstart.py
 ```
+
+> **Windows users:** replace `python3` with `python` if needed.
 
 Output:
 
@@ -79,10 +81,10 @@ Output:
 
 ```bash
 # Fast stochastic model — < 1 s, matches paper figure exactly
-python examples/drought_stress.py --save fig1.png
+python3 examples/drought_stress.py --save fig1.png
 
 # Full Fokker-Planck simulation — ~5 min, exploratory
-python examples/make_fig1.py
+python3 examples/make_fig1.py
 ```
 
 > **Note:** `drought_stress.py` implements the stochastic model parameterised to match
