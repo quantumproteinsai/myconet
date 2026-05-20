@@ -91,6 +91,23 @@ python3 examples/make_fig1.py
 > the Freiman–Villani theoretical predictions (σ_r: 3.1 → 4.6, C_sim ≈ 20.9).
 > `MycoNetSimulation` runs the full coupled PDE + network simulation for research use.
 
+## One-command setup on a Linux server or VPS
+
+```bash
+# Download and run the setup script
+curl -O https://raw.githubusercontent.com/quantumproteinsai/myconet/main/setup_vps.sh
+chmod +x setup_vps.sh
+./setup_vps.sh
+```
+
+This will automatically:
+- Create a Python virtual environment
+- Install myconet from PyPI
+- Clone the repository
+- Run the quick start test
+- Run the unit tests
+- Generate Figure 1 (`fig1.png`)
+
 ---
 
 ## Key modules
