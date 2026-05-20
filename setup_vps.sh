@@ -49,34 +49,39 @@ else
     git clone https://github.com/quantumproteinsai/myconet.git "$REPO" --quiet
 fi
 
-# ── 5. Quick smoke test ───────────────────────────────────
+# ── 5. Quick start test ──────────────────────────────────
 echo ""
-echo "==> Running smoke test (unit tests)..."
+echo "==> Running quick start test..."
 cd "$REPO"
-pip install pytest --quiet
-python -m pytest tests/test_freiman.py -v --tb=short 2>&1 | tail -15
+python3 examples/quickstart.py
 
-# ── 6. Instructions ───────────────────────────────────────
+# ── 6. Smoke test (unit tests) ───────────────────────────
+echo ""
+echo "==> Running unit tests..."
+pip install pytest --quiet
+python3 -m pytest tests/ -v --tb=short 2>&1 | tail -15
+
+# ── 7. Figure 1 ──────────────────────────────────────────
+echo ""
+echo "==> Generating Figure 1..."
+python3 examples/drought_stress.py --save fig1.png
+echo "    Figure saved: $REPO/fig1.png"
+
+# ── 8. Instructions ───────────────────────────────────────
 echo ""
 echo "=================================================="
 echo "  Setup complete."
 echo "=================================================="
 echo ""
-echo "To generate Figure 1 (single run, ~3 min):"
+echo "Figure 1 is at: $REPO/fig1.png"
 echo ""
-echo "  source $VENV/bin/activate"
-echo "  cd $REPO"
-echo "  python examples/drought_stress.py --save fig1.png"
+echo "Download it with:"
+echo "  scp user@your-vps-ip:$REPO/fig1.png ."
 echo ""
-echo "To run the full 10-run ensemble in the background:"
-echo ""
+echo "To run the full Fokker-Planck simulation (~5 min):"
 echo "  screen -S myconet"
 echo "  source $VENV/bin/activate"
 echo "  cd $REPO"
-echo "  python examples/drought_stress.py --ensemble --save fig1.png"
-echo "  # Press Ctrl+A then D to detach"
-echo "  # Reconnect later with: screen -r myconet"
-echo ""
-echo "When done, download the figure:"
-echo "  scp user@your-vps-ip:$REPO/fig1.png ."
+echo "  python3 examples/make_fig1.py"
+echo "  # Ctrl+A then D to detach, screen -r myconet to reattach"
 echo ""
