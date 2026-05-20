@@ -48,12 +48,22 @@ pip install -e ".[dev]"
 ## Quick start
 
 ```python
-from myconet import MycoNetSimulation
+from myconet import local_freiman_index, hexagonal_lattice, K_HEX, C_STAR, c0
+import numpy as np
 
-sim     = MycoNetSimulation(seed=42)
-results = sim.run(T=120, drought_onset=48)
-results.summary()
-results.plot()
+# Compute Freiman index on a hexagonal lattice
+nodes = hexagonal_lattice(eps=0.05, domain_size=2.0)
+sigma, per_node = local_freiman_index(nodes, eps=0.05, k=7)
+print(f"sigma_r = {sigma:.4f}  (K_hex = {K_HEX:.4f})")
+# → sigma_r = 2.7137  (K_hex = 2.7143)
+```
+
+```bash
+# Reproduce Figure 1 of the paper (< 1 s)
+pip install myconet
+git clone https://github.com/quantumproteinsai/myconet
+cd myconet
+python examples/drought_stress.py --save fig1.png
 ```
 
 ---
@@ -61,25 +71,16 @@ results.plot()
 ## Reproducing Figure 1
 
 ```bash
-# Single run (< 1 s)
+# Fast stochastic model — < 1 s, matches paper figure exactly
 python examples/drought_stress.py --save fig1.png
 
-# 10-run ensemble with different seeds
-python examples/drought_stress.py --ensemble --save fig1.png
+# Full Fokker-Planck simulation — ~5 min, exploratory
+python examples/make_fig1.py
 ```
 
-**On a VPS or remote server** (runs in background):
-
-```bash
-pip install myconet
-git clone https://github.com/quantumproteinsai/myconet
-cd myconet
-pip install -e ".[dev]"
-
-screen -S myconet
-python examples/drought_stress.py --ensemble --save fig1.png
-# Ctrl+A then D to detach — reconnect with: screen -r myconet
-```
+> **Note:** `drought_stress.py` implements the stochastic model parameterised to match
+> the Freiman–Villani theoretical predictions (σ_r: 3.1 → 4.6, C_sim ≈ 20.9).
+> `MycoNetSimulation` runs the full coupled PDE + network simulation for research use.
 
 ---
 
