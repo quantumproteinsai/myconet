@@ -29,7 +29,8 @@ where K_hex = 19/7 ≈ 2.714, C* ≈ 21.8, ε is mean hyphal spacing, D is diffu
 
 ![Figure 1](fig1.png)
 
-*Figure 1. Time evolution of σ_r(Γ), W₂/ε, and Ψε²/D under drought stress (t=48h). Red dashed: Theorem 6.1 lower bound. Inset: quadratic scaling with C_sim ≈ 20.9.*
+*Figure 1. Time evolution of σ_r(Γ), W₂/ε, and Ψε²/D under drought stress (t_d = 48 h).
+Red dashed: Theorem 6.1 lower bound. Inset: quadratic scaling with C_sim ≈ 20.9.*
 
 ---
 
@@ -44,7 +45,7 @@ From source:
 ```bash
 git clone https://github.com/quantumproteinsai/myconet
 cd myconet
-pip install -e ".[dev]"
+pip install -e .
 ```
 
 ---
@@ -52,7 +53,6 @@ pip install -e ".[dev]"
 ## Quick start
 
 ```bash
-pip install myconet
 git clone https://github.com/quantumproteinsai/myconet
 cd myconet
 python3 examples/quickstart.py
@@ -60,7 +60,7 @@ python3 examples/quickstart.py
 
 > **Windows users:** replace `python3` with `python` if needed.
 
-Output:
+Expected output:
 
 ```
 1. Hexagonal reference lattice
@@ -84,33 +84,24 @@ Output:
 ## Reproducing Figure 1
 
 ```bash
-# Fast stochastic model — < 1 s, matches paper figure exactly
 python3 examples/drought_stress.py --save fig1.png
-
-# Full Fokker-Planck simulation — ~5 min, exploratory
-python3 examples/make_fig1.py
 ```
 
-> **Note:** `drought_stress.py` implements the stochastic model parameterised to match
-> the Freiman–Villani theoretical predictions (σ_r: 3.1 → 4.6, C_sim ≈ 20.9).
-> `MycoNetSimulation` runs the full coupled PDE + network simulation for research use.
+> `drought_stress.py` implements the stochastic model parameterised to match the
+> Freiman–Villani theoretical predictions (σ_r: 3.1 → 4.6, C_sim ≈ 20.9).
+> For the full Fokker–Planck simulation (~5 min), run `python3 examples/make_fig1.py`.
+
+---
 
 ## One-command setup on a Linux server or VPS
 
 ```bash
-# Download and run the setup script
 curl -O https://raw.githubusercontent.com/quantumproteinsai/myconet/main/setup_vps.sh
 chmod +x setup_vps.sh
 ./setup_vps.sh
 ```
 
-This will automatically:
-- Create a Python virtual environment
-- Install myconet from PyPI
-- Clone the repository
-- Run the quick start test
-- Run the unit tests
-- Generate Figure 1 (`fig1.png`)
+This automatically creates a virtual environment, installs myconet, runs the unit tests, and generates Figure 1.
 
 ---
 
