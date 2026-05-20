@@ -47,23 +47,30 @@ pip install -e ".[dev]"
 
 ## Quick start
 
-```python
-from myconet import local_freiman_index, hexagonal_lattice, K_HEX, C_STAR, c0
-import numpy as np
-
-# Compute Freiman index on a hexagonal lattice
-nodes = hexagonal_lattice(eps=0.05, domain_size=2.0)
-sigma, per_node = local_freiman_index(nodes, eps=0.05, k=7)
-print(f"sigma_r = {sigma:.4f}  (K_hex = {K_HEX:.4f})")
-# → sigma_r = 2.7137  (K_hex = 2.7143)
-```
-
 ```bash
-# Reproduce Figure 1 of the paper (< 1 s)
 pip install myconet
 git clone https://github.com/quantumproteinsai/myconet
 cd myconet
-python examples/drought_stress.py --save fig1.png
+python examples/quickstart.py
+```
+
+Output:
+
+```
+1. Hexagonal reference lattice
+   N = 1362 nodes,  eps = 0.05 cm
+   sigma_r = 2.7132  (K_hex = 19/7 = 2.7143)  <- exact match
+
+2. Theorem 6.1 dissipation lower bound
+    sigma_r    excess    W2 >= (cm)    Psi >= (h-1)  Phase
+   --------  --------  ------------  --------------  -----
+     2.7143    0.0000      0.000000          0.0000  Healthy
+     3.1000    0.3857      0.005625          4.6656  Healthy
+     3.8000    1.0857      0.015833         36.9664  Adaptive
+     4.6000    1.8857      0.027500        111.5136  Stressed
+
+3. Drought stress ratio (sigma_r: 3.1 -> 4.6)
+   Psi_post / Psi_pre >= 23.9x  (paper reports ~24x)
 ```
 
 ---
