@@ -1,0 +1,10 @@
+﻿dist/
+myconet-env/
+*.egg-info/
+__pycache__/
+*.pyc
+*.pyo
+build/
+.pytest_cache/
+*.npz
+*.npy

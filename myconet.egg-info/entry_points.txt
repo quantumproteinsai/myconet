@@ -1,2 +1,0 @@
-[console_scripts]
-myconet-drought = examples.drought_stress:main
