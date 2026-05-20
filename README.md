@@ -61,10 +61,10 @@ results.plot()
 ## Reproducing Figure 1
 
 ```bash
-# Single run (~3 min)
+# Single run (< 1 s)
 python examples/drought_stress.py --save fig1.png
 
-# 10-run ensemble — matches paper exactly (~25 min)
+# 10-run ensemble with different seeds
 python examples/drought_stress.py --ensemble --save fig1.png
 ```
 
@@ -111,7 +111,7 @@ python examples/drought_stress.py --ensemble --save fig1.png
   title   = {{MycoNet}: Python simulation framework for mycorrhizal network biophysics},
   year    = {2026},
   url     = {https://github.com/quantumproteinsai/myconet},
-  version = {1.0.0}
+  version = {1.0.6}
 }
 ```
 
