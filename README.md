@@ -27,6 +27,10 @@ The central result (Theorem 6.1): a mycorrhizal network with local Freiman index
 
 where K_hex = 19/7 ≈ 2.714, C* ≈ 21.8, ε is mean hyphal spacing, D is diffusivity.
 
+![Figure 1](fig1.png)
+
+*Figure 1. Time evolution of σ_r(Γ), W₂/ε, and Ψε²/D under drought stress (t=48h). Red dashed: Theorem 6.1 lower bound. Inset: quadratic scaling with C_sim ≈ 20.9.*
+
 ---
 
 ## Installation
