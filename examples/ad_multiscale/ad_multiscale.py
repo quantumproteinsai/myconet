@@ -582,7 +582,7 @@ def fig1_clinical(S):
                  'MMSE score, Aβ PET SUVr, Tau PET (untreated vs triple therapy)',
                  fontweight='bold', fontsize=12)
     rows = [('MMSE','MMSE (0–30)'),('PET_Ab','Aβ PET SUVr'),('PET_tau','Tau PET')]
-    phenos = [('MCI','MCI → early AD'),('late','Late-AD')]
+    phenos = [('MCI','MCI → early AD'),('Late-AD','Late-AD')]
     for ci,(ph,coltitle) in enumerate(phenos):
         keys_p = [k for k in S if ph in k]
         for ri,(var,ylab) in enumerate(rows):
@@ -603,7 +603,7 @@ def fig1_clinical(S):
                 ax.set_ylim(0,32)
                 for lv,lt in [(24,'Mild dementia'),(18,'Mod. dementia')]:
                     ax.axhline(lv,color=C['mmse'],ls=':',lw=0.8,alpha=0.5)
-                    ax.text(4.0,lv+0.3,lt,fontsize=7,color=C['mmse'])
+                    ax.text(1.15,lv+0.3,lt,fontsize=7,color=C['mmse'])
             ax.grid(True,color=C['grid'],lw=0.4)
             ax.legend(fontsize=8)
     plt.tight_layout(rect=[0,0,1,0.95])
@@ -836,6 +836,46 @@ def fig6_summary(S):
     plt.close(); print('  ✓ Fig 6')
 
 
+def fig7_dual_w2(S):
+    """Figure 7 — Therapeutic W₂ Paradox (AD version)."""
+    fig, axes = plt.subplots(1, 2, figsize=(12, 5))
+    fig.suptitle(
+        'Figure 7 — Therapeutic W\u2082 Paradox\n'
+        'W\u2082(\u03c1_t, \u03c1_healthy) rises under triple therapy in Late-AD '
+        '\u2014 cell populations moving away from AD pathological attractor\n'
+        'MCI treated W\u2082: 1.052\u21920.152 (\u2193 toward healthy);  '
+        'Late-AD treated W\u2082: 0.585\u21921.088 (\u2191 away from pathological)',
+        fontweight='bold', fontsize=10)
+    phenos = [('MCI', 'MCI \u2192 Early AD'), ('Late-AD', "Late Alzheimer's Disease")]
+    for ci, (ph, title) in enumerate(phenos):
+        ax = axes[ci]
+        kp = [k for k in S if ph in k]
+        for key in kp:
+            s = S[key]
+            clr = C['neuron'] if 'Untreated' in key else C['abeta']
+            ls  = '-' if 'Untreated' in key else '--'
+            lbl = 'Untreated' if 'Untreated' in key else 'Triple Therapy'
+            ax.plot(s['t']/365, s['W2'], color=clr, ls=ls, lw=2.2,
+                    label=lbl, alpha=0.9)
+        ax.axvline(1.0, color='gray', ls=':', lw=1.2, alpha=0.7,
+                   label='Treatment onset (yr 1)')
+        ax.text(0.02, 0.97,
+                'W\u2082 \u2191 under treatment:\ncell populations moving\n'
+                'away from AD attractor',
+                transform=ax.transAxes, fontsize=7, va='top',
+                bbox=dict(boxstyle='round', fc='#fffbe6', ec='#e8d44d', alpha=0.9))
+        ax.set_title(title, fontweight='bold', fontsize=10)
+        ax.set_xlabel('Time (years)')
+        ax.set_ylabel('W\u2082(\u03c1_t, \u03c1_healthy)')
+        ax.set_xlim(0, 5)
+        ax.legend(fontsize=8)
+        ax.grid(True, color=C['grid'], lw=0.4)
+    plt.tight_layout(rect=[0, 0, 1, 0.86])
+    plt.savefig(f'{OUTDIR}/fig7_dual_w2.png', dpi=180, bbox_inches='tight')
+    plt.close()
+    print('  \u2713 Fig 7 (therapeutic W\u2082 paradox)')
+
+
 # ═══════════════════════════════════════════════════════════════════════════
 # MAIN
 # ═══════════════════════════════════════════════════════════════════════════
@@ -861,8 +901,8 @@ if __name__ == '__main__':
     fig7_dual_w2(S)
 
     print('\n'+'═'*64)
-    for ph in ('MCI','late'):
-        tag = 'MCI' if ph=='MCI' else 'Late-AD'
+    for ph in ('MCI', 'Late-AD'):
+        tag = ph
         su = S[f'{tag} — Untreated']
         st = S[f'{tag} — Triple Therapy']
         print(f'  {tag}  MMSE    yr5 : Unt={su["MMSE"][-1]:.1f}'
